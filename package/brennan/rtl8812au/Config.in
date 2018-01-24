@@ -1,0 +1,9 @@
+config BR2_PACKAGE_RTL8812AU
+	bool "rtl8812au"
+	help
+	  Wifi kernel module for Realtek 8812/21 chipsets
+	  
+	  This driver is not currently upstreamed so has to be built
+	  separately.
+
+	  https://github.com/fariouche/rtl8812AU

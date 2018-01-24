@@ -1,0 +1,8 @@
+config BR2_PACKAGE_COVERART
+	bool "coverart"
+	help
+	  libcoverart
+
+	  http://brennan.co.uk
+
+

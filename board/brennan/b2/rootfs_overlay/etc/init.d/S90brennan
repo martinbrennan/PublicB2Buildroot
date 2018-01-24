@@ -1,0 +1,21 @@
+#!/bin/sh
+#
+# Start B2
+#
+
+case "$1" in
+	start)
+		echo "Starting B2..."
+		until /usr/bin/b2
+		do
+			R=$?
+			echo "Exit Code "$R" Restarting"
+		done
+		echo "B2 exited"
+		;;
+	stop)
+		;;
+	*)
+		echo "Usage: $0 {start}"
+		exit 1
+esac

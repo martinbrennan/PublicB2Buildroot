@@ -1,0 +1,35 @@
+#!/bin/sh
+#
+# Insert some modules
+#
+
+start() {
+	echo -n "Starting module insertion: "
+	modprobe 8812au
+	modprobe rt2800usb
+	modprobe usb-storage
+	echo "OK"
+}
+
+stop() {
+	echo -n "Stopping  module insertion: "
+	echo "OK"
+}
+
+case "$1" in
+  start)
+	start
+	;;
+  stop)
+	stop
+	;;
+  restart|reload)
+	stop
+	start
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+esac
+
+exit $?

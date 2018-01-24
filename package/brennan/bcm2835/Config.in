@@ -1,0 +1,8 @@
+config BR2_PACKAGE_BCM2835
+	bool "bcm2835"
+	help
+	  BCM library for Brennan B2 app
+
+	  http://brennan.co.uk
+
+

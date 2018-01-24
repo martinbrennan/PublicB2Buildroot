@@ -1,0 +1,7 @@
+config BR2_PACKAGE_B2
+	bool "b2app"
+	select BR2_PACKAGE_WIRELESS_TOOLS_LIB
+	help
+	  Main B2 Application
+
+	  http://brennan.co.uk

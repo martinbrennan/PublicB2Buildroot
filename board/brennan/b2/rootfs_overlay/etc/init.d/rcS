@@ -1,0 +1,44 @@
+#!/bin/sh
+
+# Init hotplug interface
+echo /sbin/mdev > /proc/sys/kernel/hotplug
+
+# Redirect stdout and stderr to a temporary file
+exec 6>&1
+exec > /var/log/rcS.log
+exec 7>&2
+exec 2>&1
+exec 8>&1
+
+# Start all init scripts in /etc/init.d
+# executing them in numerical order.
+#
+for i in /etc/init.d/S??* ;do
+
+	# Ignore dangling symlinks (if any).
+	[ ! -f "$i" ] && continue
+
+	case "$i" in
+	*.sh)
+		# Source shell script for speed.
+		(
+			trap - INT QUIT TSTP
+			set start
+			. $i
+		)
+		;;
+	/etc/init.d/S90brennan)
+		# Remove stdout and stderr redirection
+		exec 2>&7 1>&6
+		$i start
+		exec 1>&8 2>&1
+		;;
+	*)
+		# No sh extension, so fork subprocess.
+		$i start
+		;;
+	esac
+done
+
+# Revert the changes to stdout and stderr
+exec 2>&7 1>&6 7>&- 6>&- 8>&-

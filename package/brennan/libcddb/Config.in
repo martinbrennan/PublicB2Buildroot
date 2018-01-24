@@ -1,0 +1,8 @@
+config BR2_PACKAGE_LIBCDDB
+	bool "libcddb"
+	help
+	  libcddb
+
+	  http://brennan.co.uk
+
+

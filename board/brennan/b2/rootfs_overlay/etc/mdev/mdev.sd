@@ -1,0 +1,111 @@
+#!/bin/sh
+INTERNALHDD=/devices/platform/bcm2708_usb/usb1/1-1/1-1.3/1-1.3.1
+USBA3=/devices/platform/bcm2708_usb/usb1/1-1/1-1.3/1-1.3.3
+USBA4=/devices/platform/bcm2708_usb/usb1/1-1/1-1.3/1-1.3.4
+USBC=/devices/platform/bcm2708_usb/usb1/1-1/1-1.2/1-1.2
+
+LOG="logger -p user.info -t mdev.sd"
+
+$LOG "DEVTYPE: $DEVTYPE, ACTION: $ACTION, DEVPATH: $DEVPATH, MDEV: $MDEV"
+
+case "$DEVTYPE" in
+	disk )
+		case "$ACTION" in
+			add )
+				case "$DEVPATH" in
+					*$INTERNALHDD* )
+						ln -s /dev/$MDEV /dev/b2_internalhdd > /dev/null 2>&1
+						$LOG "Found $INTERNALHDD - linking from: /dev/b2_internalhdd"
+						;;
+					*$USBA3* )
+						ln -s /dev/$MDEV /dev/b2_usba > /dev/null 2>&1
+						$LOG "Found $USBA3 - linking from: /dev/b2_usba"
+						;;
+					*$USBA4* )
+						ln -s /dev/$MDEV /dev/b2_usba > /dev/null 2>&1
+						$LOG "Found $USBA4 - linking from: /dev/b2_usba"
+						;;
+					*$USBC* )
+						ln -s /dev/$MDEV /dev/b2_usbc > /dev/null 2>&1
+						$LOG "Found $USBC - linking from: /dev/b2_usbc"
+						;;
+				esac
+				;;
+
+		 	remove )
+				case "$DEVPATH" in
+					*$INTERNALHDD* )
+						rm -f /dev/b2_internalhdd
+						$LOG "Removing $INTERNALHDD - linked from: /dev/b2_internalhdd"
+						;;
+					*$USBA3* )
+						rm -f /dev/b2_usba
+						$LOG "Removing $USBA3 - linked from: /dev/b2_usba"
+						;;
+					*$USBA4* )
+						rm -f /dev/b2_usba
+						$LOG "Removing $USBA4 - linked from: /dev/b2_usba"
+						;;
+					*$USBC* )
+						rm -f /dev/b2_usbc
+						$LOG "Removing $USBC - linked from: /dev/b2_usbc"
+						;;
+				esac
+				;;
+
+			change )
+				$LOG "Changing $MDEV - reading partition table"
+				sleep 1
+				fdisk -l /dev/$MDEV > /dev/null
+				;;
+		esac
+		;;
+
+	partition )
+		PART=${MDEV#sd?}
+		case "$ACTION" in
+			add )
+				case "$DEVPATH" in
+					*$INTERNALHDD* )
+						ln -s /dev/$MDEV /dev/b2_internalhdd_p$PART > /dev/null 2>&1
+						$LOG "Found $INTERNALHDD - linking from: /dev/b2_internalhdd_p$PART"
+						;;
+					*$USBA3* )
+						ln -s /dev/$MDEV /dev/b2_usba_p$PART > /dev/null 2>&1
+						$LOG "Found $USBA3 - linking from: /dev/b2_usba_p$PART"
+						;;
+					*$USBA4* )
+						ln -s /dev/$MDEV /dev/b2_usba_p$PART > /dev/null 2>&1
+						$LOG "Found $USBA4 - linking from: /dev/b2_usba_p$PART"
+						;;
+					*$USBC* )
+						ln -s /dev/$MDEV /dev/b2_usbc_p$PART > /dev/null 2>&1
+						$LOG "Found $USBC - linking from: /dev/b2_usbc_p$PART"
+						;;
+				esac
+				;;
+
+		 	remove )
+				case "$DEVPATH" in
+					*$INTERNALHDD* )
+						rm -f /dev/b2_internalhdd_p$PART
+						$LOG "Removing $INTERNALHDD - linked from: /dev/b2_internalhdd_p$PART"
+						;;
+					*$USBA3* )
+						rm -f /dev/b2_usba_p$PART
+						$LOG "Removing $USBA3 - linked from: /dev/b2_usba_p$PART"
+						;;
+					*$USBA4* )
+						rm -f /dev/b2_usba_p$PART
+						$LOG "Removing $USBA4 - linked from: /dev/b2_usba_p$PART"
+						;;
+					*$USBC* )
+						rm -f /dev/b2_usbc_p$PART
+						$LOG "Removing $USBC - linked from: /dev/b2_usbc_p$PART"
+						;;
+				esac
+				;;
+		esac
+		;;
+esac  
+

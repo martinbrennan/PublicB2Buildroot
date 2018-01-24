@@ -1,0 +1,7 @@
+config BR2_PACKAGE_SPLASH
+	bool "splash"
+	depends on BR2_PACKAGE_BCM2835 && BR2_PACKAGE_FREETYPE
+	help
+	  Brennan Splash Screen Application
+
+	  http://brennan.co.uk

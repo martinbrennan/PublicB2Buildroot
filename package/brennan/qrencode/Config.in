@@ -1,0 +1,9 @@
+config BR2_PACKAGE_QRENCODE
+	bool "qrencode"
+	select BR2_PACKAGE_LIBPNG
+	help
+	  qrencode
+
+	  http://brennan.co.uk
+
+

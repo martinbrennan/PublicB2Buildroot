@@ -1,0 +1,7 @@
+config BR2_PACKAGE_RIP
+	bool "rip"
+	depends on BR2_PACKAGE_LIBCDIO && BR2_PACKAGE_LIBCDDB
+	help
+	  B2 Ripper test program
+
+	  http://brennan.co.uk

@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# Start/stop the Bluetooth daemon
+#
+
+case "$1" in
+  start)
+	echo -n "Starting Bluetooth daemon..."
+	/usr/sbin/bluetoothd
+	echo "."
+	;;
+  stop)
+	echo -n "Stopping Bluetooth daemon..."
+	killall bluetoothd
+	echo "."
+	;;
+  restart)
+	"$0" stop
+	"$0" start
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+	;;
+esac
+
+exit 0

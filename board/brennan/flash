@@ -1,0 +1,6 @@
+sudo rm /media/martin/BOOT/*
+sudo cp buildroot/output/images/rpi-firmware/* /media/martin/BOOT
+sudo cp buildroot/output/images/zImage /media/martin/BOOT 
+sudo rm -rf /media/martin/rootfs/*
+sudo tar -xf buildroot/output/images/rootfs.tar -C /media/martin/rootfs
+sync

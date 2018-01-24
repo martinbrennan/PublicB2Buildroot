@@ -1,0 +1,8 @@
+config BR2_PACKAGE_MUSICBRAINZ
+	bool "musicbrainz"
+	help
+	  libmusicbrainz
+
+	  http://brennan.co.uk
+
+

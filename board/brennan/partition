@@ -1,0 +1,12 @@
+sudo umount /dev/sdb1
+sudo umount /dev/sdb2
+sudo parted -s /dev/sdb -- rm 1 rm 2 rm 3 rm 4 rm 5 rm 6
+sudo parted -s /dev/sdb -- print \
+	mkpart primary fat16 1048KiB 32Mib \
+	mkpart primary ext4 32MiB 1900Mb \
+	print
+sudo mkfs.vfat -n BOOT /dev/sdb1
+sudo mkfs.ext4 -L rootfs /dev/sdb2
+
+
+
